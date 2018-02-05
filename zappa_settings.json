@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "aws_region": "eu-central-1",
+        "django_settings": "zapball.settings",
+        "profile_name": "zappa",
+        "project_name": "zapball",
+        "runtime": "python3.6",
+        "s3_bucket": "zappa-zapball"
+    }
+}
