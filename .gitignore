@@ -109,3 +109,4 @@ venv.bak/
 
 # dev
 db.sqlite3
+zapball/settings_local.py
