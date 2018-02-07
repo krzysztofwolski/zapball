@@ -79,12 +79,12 @@ def test_join_random_team(
     team_a, team_b = teams
 
     for user in users:
-        assert utils.join_random_team(user, teams)
+        assert utils.join_random_team(user, teams)[0]
         assert (team_a.players.filter(user=user).exists() or
                 team_b.players.filter(user=user).exists())
 
     # 5th player should not be able to join
-    assert not utils.join_random_team(user_e, teams)
+    assert not utils.join_random_team(user_e, teams)[0]
 
     # players should not be able to join match multiple times
-    assert not utils.join_random_team(user_a, teams)
+    assert not utils.join_random_team(user_a, teams)[0]

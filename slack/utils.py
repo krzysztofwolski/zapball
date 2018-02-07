@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 from .models import SlackUser
 
 
-def is_slack_token_valid(request: HttpRequest) -> bool:
-    return request.POST.get('token') == settings.SLACK_VERIFICATION_TOKEN
+def is_slack_token_valid(token: str) -> bool:
+    return token == settings.SLACK_VERIFICATION_TOKEN
 
 
 def format_user_mention(user: SlackUser) -> str:
