@@ -24,7 +24,7 @@ def prepare_match(game: Game, msg: str='') -> Tuple[Match, List[MatchTeam]]:
     return match, teams
 
 
-def join_match(match: Match, user: User) -> bool:
+def join_match(match: Match, user: User) -> Tuple[bool, str]:
     teams = list(MatchTeam.objects.filter(match=match))
     return join_random_team(user, teams)
 
@@ -58,17 +58,20 @@ def get_users_from_teams(teams: List[MatchTeam]) -> List[User]:
     return users
 
 
-def join_random_team(user: User, teams: List[MatchTeam]) -> bool:
+def join_random_team(user: User, teams: List[MatchTeam]) -> Tuple[bool, str]:
+    """Join given user to one of provided teams. Returns tuple with boolean
+    describing operation success and message"""
+
     # check if player already joined
     if user in get_users_from_teams(teams):
-        return False
+        return False, 'already joined'
 
     # check for available teams
     available_teams = list(filter(lambda x: not is_team_full(x), teams))
 
     if len(available_teams) == 0:
-        return False
+        return False, 'no free spots'
 
     team = random.choice(available_teams)
     MatchPlayer.objects.create(team=team, user=user)
-    return True
+    return True, 'success'
